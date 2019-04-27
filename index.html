@@ -1,0 +1,378 @@
+<html>
+<head>
+  <title>Simposium Asia Oceania 2019</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport'/>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="login-page sidebar-collapse">
+
+<div class="page-header header-filter"
+     style="background-image: url('assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div id="login_div" class="card card-login">
+          <form class="form">
+            <div class="card-header card-header-primary text-center">
+              <h4 class="card-title">Selamat Datang di <br>Simposium Asia Oceania</h4>
+              <div class="social-line">
+                <!--<a href="#pablo" class="btn btn-just-icon btn-link">
+                  <i class="fa fa-facebook-square"></i>
+                </a>
+                <a href="#pablo" class="btn btn-just-icon btn-link">
+                  <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#pablo" class="btn btn-just-icon btn-link">
+                  <i class="fa fa-google-plus"></i>
+                </a>-->
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">mail</i>
+                    </span>
+                </div>
+                <input type="email" class="form-control" placeholder="Email..." id="email_field">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                </div>
+                <input type="password" class="form-control" placeholder="Password..." id="password_field">
+              </div>
+              <div class="footer text-center">
+                <a onclick="login()" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div id="user_div" class="card card-login">
+          <div class="card-body">
+            <form class="form">
+              <div class="card-header card-header-primary text-center">
+                <h4 class="card-title">Selamat Datang di <br>Simposium Asia Oceania</h4>
+                <div class="social-line">
+                  <!--<a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-facebook-square"></i>
+                  </a>
+                  <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                  <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-google-plus"></i>
+                  </a>-->
+                </div>
+              </div>
+              <div class="card bg-info">
+                <div class="card-body">
+                  <h4 class="card-title">
+                    Email
+                  </h4>
+                  <span id="welcome-user"></span>
+                  <h4 class="card-title">
+                    Status
+                  </h4>
+                  <span class="badge badge-pill badge-success" id="isapp"></span>
+                </div>
+              </div>
+                <div id="qrcode"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div id="isiform-div" class="card card-login">
+          <div class="card-body">
+            <form class="form">
+              <div class="card-header card-header-primary text-center">
+                <h4 class="card-title">Selamat Datang di <br>Simposium Asia Oceania</h4>
+                <div class="social-line">
+                  <!--<a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-facebook-square"></i>
+                  </a>
+                  <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                  <a href="#pablo" class="btn btn-just-icon btn-link">
+                    <i class="fa fa-google-plus"></i>
+                  </a>-->
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>Nama Lengkap</h4>
+                <input type="text" class="form-control" id="namaLengkap" placeholder="Nama Lengkap">
+                <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+              </div>
+              <div class="form-group">
+                <h4>Jenis Kelamin</h4>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="jk" value="M"> Laki-laki
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="jk" value="F"> Perempuan
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>No. Passport</h4>
+                <input type="text" class="form-control" id="noPassport" placeholder="Nomor Passport">
+              </div>
+              <div class="form-group">
+                <h4>Status</h4>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="stat" value="Delegasi"> Delegasi
+                    <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="stat" value="Peininjau"> Peninjau
+                    <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="stat" value="Peininjau Plus"> Peninjau+
+                    <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="stat" value="Peserta Konferensi">
+                    Peserta Konferensi
+                    <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="stat" value="Peserta Tambahan"> Peserta
+                    Tambahan / Simposium
+                    <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>Kota, Negara</h4>
+                <div class="row">
+                  <div class="col-6">
+                    <input type="text" class="form-control" id="kota" placeholder="Kota">
+                  </div>
+                  <div class="col-6">
+                    <input type="text" class="form-control" id="negara" placeholder="Negara">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>Universitas</h4>
+                <input type="text" class="form-control" id="univ" placeholder="Universitas">
+              </div>
+              <div class="form-group">
+                <h4>Jurusan</h4>
+                <input type="text" class="form-control" id="jurusan" placeholder="Jurusan">
+              </div>
+
+              <div class="form-group">
+                <h4>Puasa</h4>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="puasa"> Iya
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="puasa"> Tidak
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group" style="padding-top: 2rem">
+                <h4>Vegetarian</h4>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="vege"> Iya
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="vege"> Tidak
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>Alergi</h4>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="alergi" value="Kacang"> Kacang
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="alergi" value="Telur"> Telur
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="alergi" value="Seafood"> Seafood
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="alergi" value="Tidak Ada"> Tidak Ada
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="alergi" id="lain" value="Lainnya"
+                           onclick="lainnya()"> Lainnya
+                    <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                  </label>
+                  <input type="text" class="form-control" id="showdis" placeholder="Lainnya"
+                         style="display: none; margin-left: 1rem; margin-bottom: 2rem;">
+                </div>
+              </div>
+              <div class="form-group">
+                <h4>Nomor Hp</h4>
+                <input type="text" class="form-control" id="nohp" placeholder="Nomor Hp">
+              </div>
+              <div class="form-group">
+                <h4>Wechat</h4>
+                <input type="text" class="form-control" id="wechat" placeholder="Wechat">
+              </div>
+              <div class="form-group">
+                <h4>Whatsapp</h4>
+                <input type="text" class="form-control" id="wa" placeholder="Whatsapp">
+              </div>
+              <div>
+                <h4>Bukti Pembayaran</h4>
+                <input name="file" type="file" id="bukti" onchange="uploadImg()">
+              </div>
+              <div class="btn btn-primary" onclick="addUser()">Submit</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1" style="margin: 0 auto;">
+        <button class="btn btn-lg btn-danger logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="copyright float-right">
+        &copy;
+        <script>
+          document.write(new Date().getFullYear())
+        </script>
+        , made for Simposium Asia Oceania by PPIT
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<!--<script src="assets/js/plugins/moment.min.js"></script>-->
+<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script src="assets/compressorjs/dist/compressor.js"></script>
+<script type="text/javascript" src="assets/qrcodejs-master/qrcode.min.js"></script>
+<!--<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>-->
+<script>
+  function lainnya() {
+    var radioLain = document.getElementById("lain");
+    var inputLain = document.getElementById("showdis");
+
+    if (radioLain.checked === true) {
+      inputLain.style.display = "block";
+    } else {
+      inputLain.style.display = "none";
+    }
+  }
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDkQllX1xufOmwlSGHL7mInEXJt6uZ_9SI",
+    authDomain: "ppi-tiongkok-mobile-apps.firebaseapp.com",
+    databaseURL: "https://ppi-tiongkok-mobile-apps.firebaseio.com",
+    projectId: "ppi-tiongkok-mobile-apps",
+    storageBucket: "ppi-tiongkok-mobile-apps.appspot.com",
+    messagingSenderId: "757314709516"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="js/index.js"></script>
+
+</body>
+</html>
