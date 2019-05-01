@@ -14,7 +14,7 @@
   <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body class="login-page sidebar-collapse">
+<body class="login-page sidebar-collapse" onload="ngecekMasukGa()">
 
 <div class="page-header header-filter"
      style="background-image: url('assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
@@ -64,23 +64,9 @@
     </div>
     <div class="row">
       <div class="col">
-        <div id="user_div" class="card card-login">
+        <div id="user_div" class="card">
           <div class="card-body">
             <form class="form">
-              <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Selamat Datang di <br>Simposium Asia Oceania</h4>
-                <div class="social-line">
-                  <!--<a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-facebook-square"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus"></i>
-                  </a>-->
-                </div>
-              </div>
               <div class="card bg-info">
                 <div class="card-body">
                   <h4 class="card-title">
@@ -93,7 +79,12 @@
                   <span class="badge badge-pill badge-success" id="isapp"></span>
                 </div>
               </div>
-                <div id="qrcode"></div>
+              <div id="qrcode"></div>
+              <div class="row">
+                <div class="col-lg-1" style="margin: 0 auto;">
+                  <button class="btn btn-lg btn-danger logout-btn" onclick="logout()">Logout</button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -101,7 +92,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <div id="isiform-div" class="card card-login">
+        <div id="isiform_div" class="card">
           <div class="card-body">
             <form class="form">
               <div class="card-header card-header-primary text-center">
@@ -317,11 +308,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-1" style="margin: 0 auto;">
-        <button class="btn btn-lg btn-danger logout-btn" onclick="logout()">Logout</button>
-      </div>
-    </div>
   </div>
   <footer class="footer">
     <div class="container">
@@ -344,11 +330,11 @@
 <script src="assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
 <script src="assets/compressorjs/dist/compressor.js"></script>
 <script type="text/javascript" src="assets/qrcodejs-master/qrcode.min.js"></script>
-<!--<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>-->
+<!--<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>-->
 <script>
   function lainnya() {
     var radioLain = document.getElementById("lain");

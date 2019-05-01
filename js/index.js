@@ -1,64 +1,79 @@
 var time = new Date();
 var currentTime = time.getTime();
 var bukurl = null;
-var isApp = false;
-var qrcode = null;
-document.getElementById("isiform_div").style.display="none";
-document.getElementById("qrcode").style.display="none";
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
+function ngecekMasukGa(){
+  var qrcode = null;
+  document.getElementById("isiform_div").style.display = "none";
+  document.getElementById("qrcode").style.display = "none";
 
-    document.getElementById("user_div").style.display = "flex";
-    /*document.getElementById("login_div").style.display = "none";*/
+  firebase.auth().onAuthStateChanged(function(users) {
+    if (users) {
+      console.log("Udh masuk cuy")
+      // User is signed in.
 
-    var user = firebase.auth().currentUser;
-    var email_id = user.email;
-    var userid = user.uid;
-    document.getElementById("welcome-user").innerHTML = email_id;
-    var db = firebase.firestore();
-    db.collection("user")
-      .where("uid", "==", userid)
-      .limit(1)
-      .get()
-      .then(function(doc){
-        doc.forEach(function(doc){
-          if(doc.exists){
-            var app = doc.data().approve;
-            if(app == true){
-              document.getElementById("isapp").innerHTML = "Terdaftar";
-              qrcode = new QRCode(document.getElementById("qrcode"), {
-                width: 128,
-                height: 128,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-              });
-              qrcode.makeCode(userid);
-              document.getElementById("qrcode").style.display="flex";
-            } if(app == false) {
-              document.getElementById("isapp").innerHTML = "Proses verifikasi";
-              document.getElementById("qrcode").style.display="none";
-            }
+      document.getElementById("user_div").style.display = "flex";
+      /*document.getElementById("login_div").style.display = "none";*/
+
+      var user = firebase.auth().currentUser;
+      var email_id = user.email;
+      var userid = user.uid;
+      document.getElementById("welcome-user").innerHTML = email_id;
+      var db = firebase.firestore();
+      db.collection("user")
+        .where("uid", "==", userid)
+        .get()
+        .then(function(doc){
+          if(doc.size > 0){
+            doc.forEach(function(doc){
+              if(doc){
+                console.log("test " + doc);
+                document.getElementById("isiform_div").style.display="none";
+                var app = doc.data().approve;
+                if(app == true){
+                  console.log("jason");
+                  document.getElementById("isapp").innerHTML = "Terdaftar";
+                  qrcode = new QRCode(document.getElementById("qrcode"), {
+                    width: 128,
+                    height: 128,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                  });
+                  qrcode.makeCode(userid);
+                  document.getElementById("qrcode").style.display="flex";
+                } if(app == false) {
+                  console.log("arrival");
+                  document.getElementById("isapp").innerHTML = "Proses verifikasi";
+                  document.getElementById("qrcode").style.display="none";
+                }
+                return;
+                if(doc == null){
+                  console.log("ga ketemu bro");
+                }
+              } else {
+                console.log("Document not found");
+              }
+            })
           } else {
-            console.log("Document not found");
+            console.log("document ga masuk");
+            document.getElementById("isapp").innerHTML = "Belum terdaftar";
+            document.getElementById("isiform_div").style.display="block";
           }
-        })
-        document.getElementById("isapp").innerHTML = "Belum terdaftar";
-        document.getElementById("isiform_div").style.display="block";
-      }).catch(function(error){
+
+        }).catch(function(error){
         console.log("Error getting document: ",error);
       });
 
-  } else {
-    // No user is signed in.
+    } else {
+      // No user is signed in.
 
-    /*document.getElementById("user_div").style.display = "none";*/
-    document.getElementById("login_div").style.display = "flex";
+      /*document.getElementById("user_div").style.display = "none";*/
+      document.getElementById("login_div").style.display = "flex";
 
-  }
-});
+    }
+  });
+}
 
 
 function login(){
@@ -89,6 +104,7 @@ function login(){
     firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).then(function(){
       document.getElementById("login_div").style.display="none";
       document.getElementById("isiform_div").style.display="flex";
+      document.getElementById("isapp").innerHTML = "Belum terdaftar";
     })
       .catch(function(error) {
       // Handle Errors here.
@@ -106,6 +122,7 @@ function logout(){
   firebase.auth().signOut();
   document.getElementById("user_div").style.display = "none";
   document.getElementById("qrcode").style.display="none";
+  document.getElementById("isiform_div").style.display="none";
 }
 
 function addUser(){
@@ -196,6 +213,9 @@ function addUser(){
     uid: user.uid
   }).then(function(){
     alert("Data berhasil dikirim!");
+    document.getElementById("isapp").innerHTML = "Proses verifikasi";
+    document.getElementById("qrcode").style.display="none";
+    document.getElementById("isiform_div").style.display="none";
   }).catch(function(error){
     alert("Error : "+ error);
   })
