@@ -9,7 +9,7 @@ function ngecekMasukGa(){
 
   firebase.auth().onAuthStateChanged(function(users) {
     if (users) {
-      console.log("Udh masuk cuy")
+      console.log("Udh masuk cuy");
       // User is signed in.
 
       document.getElementById("user_div").style.display = "flex";
@@ -17,50 +17,77 @@ function ngecekMasukGa(){
 
       var user = firebase.auth().currentUser;
       var email_id = user.email;
-      var userid = user.uid;
       document.getElementById("welcome-user").innerHTML = email_id;
       var db = firebase.firestore();
-      db.collection("user")
-        .where("uid", "==", userid)
+      db.collection("panitia")
+        .where("email", "==", email_id)
         .get()
         .then(function(doc){
+          console.log(doc.size);
           if(doc.size > 0){
             doc.forEach(function(doc){
               if(doc){
-                console.log("test " + doc);
-                document.getElementById("isiform_div").style.display="none";
-                var app = doc.data().approve;
-                if(app == true){
-                  console.log("jason");
-                  document.getElementById("isapp").innerHTML = "Terdaftar";
-                  qrcode = new QRCode(document.getElementById("qrcode"), {
-                    width: 128,
-                    height: 128,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                  });
-                  qrcode.makeCode(userid);
-                  document.getElementById("qrcode").style.display="flex";
-                } if(app == false) {
-                  console.log("arrival");
-                  document.getElementById("isapp").innerHTML = "Proses verifikasi";
-                  document.getElementById("qrcode").style.display="none";
-                }
-                return;
-                if(doc == null){
-                  console.log("ga ketemu bro");
-                }
-              } else {
-                console.log("Document not found");
+                console.log("Dia panitia nih bosqu" + email_id);
+                document.getElementById("isapp").innerHTML = "Panitia";
+                qrcode = new QRCode(document.getElementById("qrcode"), {
+                  width: 128,
+                  height: 128,
+                  colorDark : "#000000",
+                  colorLight : "#ffffff",
+                  correctLevel : QRCode.CorrectLevel.H
+                });
+                qrcode.makeCode(email_id);
+                document.getElementById("qrcode").style.display="flex";
               }
             })
           } else {
-            console.log("document ga masuk");
-            document.getElementById("isapp").innerHTML = "Belum terdaftar";
-            document.getElementById("isiform_div").style.display="block";
-          }
+            console.log("Nah yg ini user biasa bosqu "+ email_id);
+            db.collection("user")
+              .where("email", "==", email_id)
+              .get()
+              .then(function(doc){
+                console.log(doc.size);
+                if(doc.size > 0){
+                  doc.forEach(function(doc){
+                    if(doc){
+                      console.log("test " + doc);
+                      document.getElementById("isiform_div").style.display="none";
+                      var app = doc.data().approve;
+                      if(app == true){
+                        console.log("jason");
+                        document.getElementById("isapp").innerHTML = "Terdaftar";
+                        qrcode = new QRCode(document.getElementById("qrcode"), {
+                          width: 128,
+                          height: 128,
+                          colorDark : "#000000",
+                          colorLight : "#ffffff",
+                          correctLevel : QRCode.CorrectLevel.H
+                        });
+                        qrcode.makeCode(email_id);
+                        document.getElementById("qrcode").style.display="flex";
+                      } if(app == false) {
+                        console.log("arrival");
+                        document.getElementById("isapp").innerHTML = "Proses verifikasi";
+                        document.getElementById("qrcode").style.display="none";
+                      }
+                      return;
+                      if(doc == null){
+                        console.log("ga ketemu bro");
+                      }
+                    } else {
+                      console.log("Document not found");
+                    }
+                  })
+                } else {
+                  console.log("document ga masuk");
+                  document.getElementById("isapp").innerHTML = "Belum terdaftar";
+                  document.getElementById("isiform_div").style.display="block";
+                }
 
+              }).catch(function(error){
+              console.log("Error getting document: ",error);
+            });
+          }
         }).catch(function(error){
         console.log("Error getting document: ",error);
       });
