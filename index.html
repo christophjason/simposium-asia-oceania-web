@@ -81,9 +81,9 @@
               </div>
               <div id="qrcode"></div>
               <div class="row">
-                <!--<div class="col-lg-1" style="margin: 0 auto;">
-                  <button class="btn btn-lg btn-info logout-btn" onclick="ngescan()">Scan QR</button>
-                </div>-->
+                <div class="col-lg-1" style="margin: 0 auto;">
+                  <a id="btnscan" class="btn btn-lg btn-info logout-btn" data-toggle="modal" data-target="#modalscanqr" style="color: #fff; display: none;">Scan QR</a>
+                </div>
                 <div class="col-lg-1" style="margin: 0 auto;">
                   <button class="btn btn-lg btn-danger logout-btn" onclick="logout()">Logout</button>
                 </div>
@@ -312,6 +312,128 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Scan QR -->
+  <div class="modal fade" id="modalscanqr" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Scan QR Code Peserta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--Scan Peserta-->
+          <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+          <canvas id="canvas" hidden ></canvas>
+          <div id="output" hidden>
+            <div id="outputMessage">No QR code detected.</div>
+            <div hidden><b>Data:</b> <span id="outputData"></span></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  End Modal -->
+
+  <!-- Modal Hasil Scan -->
+  <div class="modal fade" id="modalafter" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Hasil Scan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6>Nama Peserta:</h6>
+          <p id="namaku"></p>
+          <p id="vegeku"></p>
+          <p id="alergiku"></p>
+          <div class="form-group">
+            <h6>Pilih Aksi:</h6>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="registrasi"> Registrasi
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="toilet"> Toilet
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="sarapan atau sahur" id="sarapansahur"> Sarapan atau Sahur
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="makan siang" id="makansiang"> Makan Siang
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="makan malam"> Makan Malam
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="networking dinner" id="netdin"> Networking Dinner
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="aksi" value="sakit"> Sakit
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="alergi" id="lain1" value="lainnya"
+                       onclick="lainnya()"> Lainnya
+                <span class="circle">
+                    <span class="check"></span>
+                  </span>
+              </label>
+              <input type="text" class="form-control" id="showdis1" placeholder="Lainnya"
+                     style="display: none; margin-left: 1rem; margin-bottom: 2rem;">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link">Nice Button</button>
+          <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  End Modal -->
+
   <footer class="footer">
     <div class="container">
       <div class="copyright float-right">
@@ -336,17 +458,28 @@
 <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
 <script src="assets/compressorjs/dist/compressor.js"></script>
 <script type="text/javascript" src="assets/qrcodejs-master/qrcode.min.js"></script>
+<script type="text/javascript" src="assets/jsQR/jsQR.js"></script>
 <!--<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>-->
 <script>
+
   function lainnya() {
     var radioLain = document.getElementById("lain");
     var inputLain = document.getElementById("showdis");
+
+    var radioLain1 = document.getElementById("lain1");
+    var inputLain1 = document.getElementById("showdis1");
 
     if (radioLain.checked === true) {
       inputLain.style.display = "block";
     } else {
       inputLain.style.display = "none";
+    }
+
+    if (radioLain1.checked === true) {
+      inputLain1.style.display = "block";
+    } else {
+      inputLain1.style.display = "none";
     }
   }
 
