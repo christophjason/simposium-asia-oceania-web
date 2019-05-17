@@ -1,6 +1,38 @@
 var time = new Date();
 var currentTime = time.getTime();
 var bukurl = null;
+var namaUser = null;
+
+function addAction(){
+  var checkedValue4 = null;
+  var aksi = document.getElementsByName("aksi");
+  var aksiLain = document.getElementById("showdis1").value;
+  for (var n = 0; aksi[n]; n++) {
+    if (aksi[n].checked) {
+      checkedValue4 = aksi[n].value;
+      if (checkedValue4 == "lainnya") {
+        checkedValue4 = aksiLain;
+      }
+    }
+  }
+
+  var db = firebase.firestore();
+  var user = firebase.auth().currentUser;
+
+  db.collection("action").add({
+    action: checkedValue4,
+    nama: namaUser,
+    uid: user.email,
+    created_at: currentTime,
+    panitia_id: user.uid
+  }).then(function () {
+    alert(namaUser + " " + checkedValue4);
+
+  }).catch(function (error) {
+    alert("Error : " + error);
+  })
+
+}
 
 function bolehNgescan() {
   var video = document.createElement("video");
@@ -35,23 +67,6 @@ function bolehNgescan() {
     requestAnimationFrame(tick);
   });
 
-  function addAction(namaUser, checkedValue4){
-    var db = firebase.firestore();
-    var user = firebase.auth().currentUser;
-
-    db.collection("action").add({
-      action: checkedValue4,
-      nama: namaUser,
-      uid: user.email,
-      created_at: currentTime,
-      panitia_id: user.uid
-    }).then(function () {
-      alert("Data berhasil dikirim!");
-
-    }).catch(function (error) {
-      alert("Error : " + error);
-    })
-  }
 
   function tick() {
     loadingMessage.innerText = "⌛ Loading video..."
@@ -87,23 +102,11 @@ function bolehNgescan() {
             if (doc.size > 0) {
               doc.forEach(function (doc) {
                 if (doc) {
-                  var nama1 = doc.data().nama;
-                  console.log("Dia panitia nih bosqu " + nama1);
-                  namaku.innerText = nama1;
+                  namaUser = doc.data().nama;
+                  console.log("Dia panitia nih bosqu " + namaUser);
+                  namaku.innerText = namaUser;
                   vegeku.style.display = "none";
                   alergiku.style.display = "none";
-                  var checkedValue4 = null;
-                  var aksi = document.getElementsByName("aksi");
-                  var aksiLain = document.getElementById("showdis1").value;
-                  for (var n = 0; aksi[n]; n++) {
-                    if (aksi[n].checked) {
-                      checkedValue4 = aksi[n].value;
-                      if (checkedValue4 == "lainnya") {
-                        checkedValue4 = aksiLain;
-                      }
-                    }
-                  }
-                  addAction(nama1,checkedValue4);
                 }
               })
             } else {
@@ -112,13 +115,13 @@ function bolehNgescan() {
                 .where("email", "==", code.data)
                 .get()
                 .then(function (doc) {
-                  console.log(doc.size);
                   if (doc.size > 0) {
+                    console.log(doc.size);
                     doc.forEach(function (doc) {
                       if (doc) {
-                        var nama1 = doc.data().nama;
-                        console.log("test " + doc);
-                        namaku.innerText = nama1;
+                        namaUser = doc.data().nama;
+                        console.log(namaUser);
+                        namaku.innerText = namaUser;
                         if (doc.data().vege) {
                           vegeku.innerText = "Vegetarian: Ya";
                         }
@@ -141,20 +144,6 @@ function bolehNgescan() {
                         if (!doc.data().net_dinner) {
                           netdin.style.display = "none";
                         }
-                        var checkedValue4 = null;
-                        var aksi = document.getElementsByName("aksi");
-                        var aksiLain = document.getElementById("showdis1").value;
-                        for (var n = 0; aksi[n]; n++) {
-                          if (aksi[n].checked) {
-                            checkedValue4 = aksi[n].value;
-                            if (checkedValue4 == "lainnya") {
-                              checkedValue4 = aksiLain;
-                            }
-                          }
-                        }
-
-                        addAction(nama1, checkedValue4);
-
 
                       } else {
                         console.log("Document not found");
