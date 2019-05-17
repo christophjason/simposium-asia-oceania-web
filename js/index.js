@@ -83,12 +83,15 @@ function bolehNgescan() {
         inversionAttempts: "dontInvert",
       });
       if (code) {
+        var emailYgSeharusnya = code.data;
+        emailYgSeharusnya.replace(" ", "").toLowerCase();
         drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
         drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
         drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
         drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
         outputMessage.hidden = true;
         outputData.parentElement.hidden = false;
+        code.data
         outputData.innerText = code.data;
         var user = firebase.auth().currentUser;
         var email_id = user.email;
