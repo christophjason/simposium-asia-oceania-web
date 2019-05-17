@@ -19,25 +19,69 @@ function addAction(){
 
   var db = firebase.firestore();
   var user = firebase.auth().currentUser;
-  /*db.collection("action")
-    .where("uid","==",emailYgSeharusnya)
-    .get()
-    .then(function(doc){
-
-    });*/
-  db.collection("action").add({
-    action: checkedValue4,
-    nama: namaUser,
-    uid: emailYgSeharusnya,
-    created_at: currentTime,
-    panitia_id: user.uid
-  }).then(function () {
-    alert("Nama: " + namaUser + "\nEmail: "+ emailYgSeharusnya + "\n" + checkedValue4);
-    $("#modalafter").modal('hide');
-    $("#modalscanqr").modal('hide');
-  }).catch(function (error) {
-    alert("Error : " + error);
-  })
+  var date = new Date(currentTime);
+  var tudei = date.getDate();
+  console.log(tudei);
+  if(checkedValue4.toLowerCase().includes("makan") || checkedValue4.toLowerCase().includes("sarapan atau sahur")){
+    db.collection("action")
+      .where("uid","==",emailYgSeharusnya)
+      .where("action","==",checkedValue4)
+      .get()
+      .then(function(doc){
+        if(doc.size>0){
+          doc.forEach(function (doc) {
+            var createdat = doc.data().created_at;
+            var actionDate = new Date(createdat);
+            var actionDay = actionDate.getDate();
+            if(actionDay == tudei){
+              alert("Maaf, peserta telah " + checkedValue4 + " sebelumnya");
+            } else {
+              db.collection("action").add({
+                action: checkedValue4,
+                nama: namaUser,
+                uid: emailYgSeharusnya,
+                created_at: currentTime,
+                panitia_id: user.uid
+              }).then(function () {
+                alert("Nama: " + namaUser + "\nEmail: "+ emailYgSeharusnya + "\n" + checkedValue4);
+                $("#modalafter").modal('hide');
+                $("#modalscanqr").modal('hide');
+              }).catch(function (error) {
+                alert("Error : " + error);
+              })
+            }
+          })
+        } else {
+          db.collection("action").add({
+            action: checkedValue4,
+            nama: namaUser,
+            uid: emailYgSeharusnya,
+            created_at: currentTime,
+            panitia_id: user.uid
+          }).then(function () {
+            alert("Nama: " + namaUser + "\nEmail: "+ emailYgSeharusnya + "\n" + checkedValue4);
+            $("#modalafter").modal('hide');
+            $("#modalscanqr").modal('hide');
+          }).catch(function (error) {
+            alert("Error : " + error);
+          })
+        }
+      });
+  } else {
+    db.collection("action").add({
+      action: checkedValue4,
+      nama: namaUser,
+      uid: emailYgSeharusnya,
+      created_at: currentTime,
+      panitia_id: user.uid
+    }).then(function () {
+      alert("Nama: " + namaUser + "\nEmail: "+ emailYgSeharusnya + "\n" + checkedValue4);
+      $("#modalafter").modal('hide');
+      $("#modalscanqr").modal('hide');
+    }).catch(function (error) {
+      alert("Error : " + error);
+    })
+  }
 }
 
 function bolehNgescan() {
