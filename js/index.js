@@ -139,8 +139,8 @@ function bolehNgescan() {
       canvasElement.hidden = false;
       outputContainer.hidden = false;
 
-      /*canvasElement.height = 350;
-      canvasElement.width = 350;*/
+      canvasElement.height = 350;
+      canvasElement.width = 450;
       canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
       var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
       var code = jsQR(imageData.data, imageData.width, imageData.height, {
