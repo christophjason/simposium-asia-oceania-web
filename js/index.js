@@ -2,6 +2,7 @@ var time = new Date();
 var currentTime = time.getTime();
 var bukurl = null;
 var namaUser = null;
+var emailYgSeharusnya = null;
 
 function addAction(){
   var checkedValue4 = null;
@@ -18,20 +19,25 @@ function addAction(){
 
   var db = firebase.firestore();
   var user = firebase.auth().currentUser;
+  /*db.collection("action")
+    .where("uid","==",emailYgSeharusnya)
+    .get()
+    .then(function(doc){
 
+    });*/
   db.collection("action").add({
     action: checkedValue4,
     nama: namaUser,
-    uid: user.email,
+    uid: emailYgSeharusnya,
     created_at: currentTime,
     panitia_id: user.uid
   }).then(function () {
-    alert(namaUser + " " + checkedValue4);
-
+    alert("Nama: " + namaUser + "\nEmail: "+ emailYgSeharusnya + "\n" + checkedValue4);
+    $("#modalafter").modal('hide');
+    $("#modalscanqr").modal('hide');
   }).catch(function (error) {
     alert("Error : " + error);
   })
-
 }
 
 function bolehNgescan() {
@@ -83,7 +89,7 @@ function bolehNgescan() {
         inversionAttempts: "dontInvert",
       });
       if (code) {
-        var emailYgSeharusnya = code.data;
+        emailYgSeharusnya = code.data;
         emailYgSeharusnya.replace(" ", "").toLowerCase();
         drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
         drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
@@ -91,14 +97,13 @@ function bolehNgescan() {
         drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
         outputMessage.hidden = true;
         outputData.parentElement.hidden = false;
-        code.data
-        outputData.innerText = code.data;
+        outputData.innerText = emailYgSeharusnya;
         var user = firebase.auth().currentUser;
         var email_id = user.email;
         var db = firebase.firestore();
         $("#modalafter").modal();
         db.collection("panitia")
-          .where("email", "==", code.data)
+          .where("email", "==", emailYgSeharusnya)
           .get()
           .then(function (doc) {
             console.log(doc.size);
@@ -106,16 +111,16 @@ function bolehNgescan() {
               doc.forEach(function (doc) {
                 if (doc) {
                   namaUser = doc.data().nama;
-                  console.log("Dia panitia nih bosqu " + namaUser);
+                  console.log("Dia panitia nih bosqu " + namaUser + emailYgSeharusnya);
                   namaku.innerText = namaUser;
                   vegeku.style.display = "none";
                   alergiku.style.display = "none";
                 }
               })
             } else {
-              console.log("Nah yg ini user biasa bosqu " + code.data);
+              console.log("Nah yg ini user biasa bosqu " + emailYgSeharusnya);
               db.collection("user")
-                .where("email", "==", code.data)
+                .where("email", "==", emailYgSeharusnya)
                 .get()
                 .then(function (doc) {
                   if (doc.size > 0) {
@@ -125,6 +130,8 @@ function bolehNgescan() {
                         namaUser = doc.data().nama;
                         console.log(namaUser);
                         namaku.innerText = namaUser;
+                        console.log(doc.data().puasa);
+                        console.log(doc.data().net_dinner);
                         if (doc.data().vege) {
                           vegeku.innerText = "Vegetarian: Ya";
                         }
@@ -134,17 +141,17 @@ function bolehNgescan() {
 
                         alergiku.innerText = "Alergi: " + doc.data().alergi;
 
-                        if (doc.data().puasa) {
-                          makansiang.style.display = "none"
+                        if (doc.data().puasa == true) {
+                          makansiang.style.display = "none";
                         }
-                        if (!doc.data().puasa) {
+                        if (doc.data().puasa == false) {
                           sarapansahur.style.display = "none";
                         }
 
-                        if (doc.data().net_dinner) {
+                        if (doc.data().net_dinner == true) {
                           netdin.style.display = "block";
                         }
-                        if (!doc.data().net_dinner) {
+                        if (doc.data().net_dinner == false) {
                           netdin.style.display = "none";
                         }
 
